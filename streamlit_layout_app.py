@@ -39,19 +39,12 @@ def main():
     if st.button('Submit') or user_input.endswith('\\n'):
         st.session_state.chat_history.append({"type": "user", "message": user_input})
 
-    # Display 'Chatbot is typing...' message
-    placeholder = st.empty()
-    placeholder.write("One moment...")
     
-
      # Simulate random wait time between 0.3 and 1 second
     wait_time = random.uniform(0.3, 1)
     time.sleep(wait_time)
     
-    # Logic to generate a response can go here
-    response = "Response from model"  # Placeholder response
-    st.session_state.chat_history.append({"type": "bot", "message": response})
-    
+  
     # Display chat history (above the user input to make it "frozen" at the bottom)
     st.write("### Chat History")
     for chat in (st.session_state.chat_history):
@@ -60,7 +53,10 @@ def main():
         else:
             st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
     
- 
+   # Logic to generate a response can go here
+    response = "Response from model"  # Placeholder response
+    st.session_state.chat_history.append({"type": "bot", "message": response})
+    
    
 
   
