@@ -36,8 +36,13 @@ def main():
     user_input = st.text_input('Type your question here:')
 
     # Add user input to chat history and display it
-    if st.button('Submit'):
+    if st.button('Submit') or user_input.endswith('\\n'):
         st.session_state.chat_history.append({"type": "user", "message": user_input})
+
+    # Display 'Chatbot is typing...' message
+    placeholder = st.empty()
+    placeholder.write("One moment...")
+    
 
      # Simulate random wait time between 0.3 and 1 second
     wait_time = random.uniform(0.3, 1)
