@@ -5,7 +5,7 @@ import streamlit as st
 
 # Initialize Streamlit app
 def main():
-    st.title('Your Streamlit Chat App')
+    st.title('Multi-Domain Tabular Data Chat App')
 
     # Top 1/3 for images
     st.write("### Image Section")
@@ -20,14 +20,20 @@ def main():
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
 
-    # Bottom 2/3 for chat interface and history
-    st.write("### Chat Interface and History")
-    
-    # Initialize chat history if it doesn't exist
+   # Initialize chat history if it doesn't exist
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    # User input
+    # Display chat history (above the user input to make it "frozen" at the bottom)
+    st.write("### Chat History")
+    for chat in (st.session_state.chat_history):
+        if chat["type"] == "user":
+            st.write(f'<div style="text-align: right; border-radius: 15px; background-color: lightblue; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
+        else:
+            st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
+    
+    # Bottom 2/3 for chat interface (frozen near the bottom)
+    st.write("### Chat Interface")
     user_input = st.text_input('Type your question here:')
 
     # Add user input to chat history and display it
@@ -38,14 +44,7 @@ def main():
         response = "Response from model"  # Placeholder response
         st.session_state.chat_history.append({"type": "bot", "message": response})
 
-    # Display chat history
-    st.write("### Chat History")
-    for chat in (st.session_state.chat_history):
-        if chat["type"] == "user":
-            st.write(f'<div style="text-align: right; border-radius: 15px; background-color: lightblue; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
-        else:
-            st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
-
+  
 
 # Run the app
 if __name__ == '__main__':
