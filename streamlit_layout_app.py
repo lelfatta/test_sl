@@ -21,7 +21,7 @@ def main():
     st.write("---")  # Horizontal line for clean transition
     
     # Cache clear button
-    if st.button('Clear Cache and Chat History'):
+    if st.button('Clear Chat History'):
         caching.clear_cache()
         st.session_state.chat_history = []
 
