@@ -19,6 +19,11 @@ def main():
 
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
+    
+    # Cache clear button
+    if st.button('Clear Cache and Chat History'):
+        caching.clear_cache()
+        st.session_state.chat_history = []
 
    # Initialize chat history if it doesn't exist
     if 'chat_history' not in st.session_state:
