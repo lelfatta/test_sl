@@ -36,7 +36,7 @@ def main():
     user_input = st.text_input('Type your question here:')
 
     # Add user input to chat history and display it
-    if st.button('Submit') or user_input.endswith('\\n'):
+    if st.button('Submit'):
         st.session_state.chat_history.append({"type": "user", "message": user_input})
 
     
@@ -51,9 +51,7 @@ def main():
         else:
             st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
 
-    # Simulate random wait time between 0.3 and 1 second
-    wait_time = random.uniform(0.3, 1)
-    time.sleep(wait_time)
+
     
    # Logic to generate a response can go here
     response = "Response from model"  # Placeholder response
