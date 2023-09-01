@@ -39,21 +39,16 @@ def main():
     
     # Bottom 2/3 for chat interface (frozen near the bottom)
     st.write("### Chat Interface")
+    user_input = st.text_input('Type your question here:')
 
-    # Use text_area and allow multiple lines
-    user_input = st.text_area('Type your question here:', key='user_input', height=75)
-
-    # Check if Enter key was pressed in the last line
-    if user_input.endswith('\n'):
-        user_input = user_input.rstrip('\n')  # Remove the trailing newline
+    # Add user input to chat history and display it
+    if st.button('Submit'):
         st.session_state.chat_history.append({"type": "user", "message": user_input})
-    
-    # Logic to generate a response can go here
-    response = "Response from model"  # Placeholder response
-    st.session_state.chat_history.append({"type": "bot", "message": response})
-    
-    # Clear the text_area
-    st.session_state.user_input = ""
+        
+        # Logic to generate a response can go here
+        response = "Response from model"  # Placeholder response
+        st.session_state.chat_history.append({"type": "bot", "message": response})
+
   
 
 # Run the app
