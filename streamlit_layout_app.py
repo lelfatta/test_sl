@@ -11,7 +11,7 @@ def main():
     st.write("### Image Section")
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image("image1.jpg", caption="Image 1", use_column_width=True)
+        st.image("Romantisized golden era movie theater screen from a side angle lights dimmed.jfif", caption="Movies", use_column_width=True)
     with col2:
         st.image("image2.jpg", caption="Image 2", use_column_width=True)
     with col3:
