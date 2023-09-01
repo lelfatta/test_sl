@@ -47,7 +47,7 @@ def main():
   
     # Display chat history (above the user input to make it "frozen" at the bottom)
     st.write("### Chat History")
-    for chat in (st.session_state.chat_history):
+    for chat in reversed(st.session_state.chat_history):
         if chat["type"] == "user":
             st.write(f'<div style="text-align: right; border-radius: 15px; background-color: lightblue; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
         else:
