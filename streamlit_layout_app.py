@@ -22,10 +22,30 @@ def main():
 
     # Bottom 2/3 for chat interface and history
     st.write("### Chat Interface and History")
+    
+    # Initialize chat history if it doesn't exist
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
+
+    # User input
     user_input = st.text_input('Type your question here:')
+
+    # Add user input to chat history and display it
     if st.button('Submit'):
-        # Your existing logic to process the user_input and fetch result from data
-        st.write('Response from model')
+        st.session_state.chat_history.append({"type": "user", "message": user_input})
+        
+        # Logic to generate a response can go here
+        response = "Response from model"  # Placeholder response
+        st.session_state.chat_history.append({"type": "bot", "message": response})
+
+    # Display chat history
+    st.write("### Chat History")
+    for chat in reversed(st.session_state.chat_history):
+        if chat["type"] == "user":
+            st.write(f'<div style="text-align: right; border-radius: 15px; background-color: lightblue; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
+        else:
+            st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
+
 
 # Run the app
 if __name__ == '__main__':
