@@ -45,9 +45,9 @@ def main():
             st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
     
  
-        # Logic to generate a response can go here
-        response = "Response from model"  # Placeholder response
-        st.session_state.chat_history.append({"type": "bot", "message": response})
+    # Logic to generate a response can go here
+    response = "Response from model"  # Placeholder response
+    st.session_state.chat_history.append({"type": "bot", "message": response})
 
   
 
