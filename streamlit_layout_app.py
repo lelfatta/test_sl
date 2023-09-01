@@ -28,7 +28,14 @@ def main():
    # Initialize chat history if it doesn't exist
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
+   # chat interface
+    st.write("### Chat Interface")
+    user_input = st.text_input('Type your question here:')
 
+    # Add user input to chat history and display it
+    if st.button('Submit'):
+        st.session_state.chat_history.append({"type": "user", "message": user_input})
+        
     # Display chat history (above the user input to make it "frozen" at the bottom)
     #st.write("### Chat History")
     for chat in (st.session_state.chat_history):
@@ -37,14 +44,7 @@ def main():
         else:
             st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
     
-    # Bottom 2/3 for chat interface (frozen near the bottom)
-    st.write("### Chat Interface")
-    user_input = st.text_input('Type your question here:')
-
-    # Add user input to chat history and display it
-    if st.button('Submit'):
-        st.session_state.chat_history.append({"type": "user", "message": user_input})
-        
+ 
         # Logic to generate a response can go here
         response = "Response from model"  # Placeholder response
         st.session_state.chat_history.append({"type": "bot", "message": response})
