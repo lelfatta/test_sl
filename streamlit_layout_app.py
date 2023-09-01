@@ -13,9 +13,9 @@ def main():
     with col1:
         st.image("Romantisized golden era movie theater screen from a side angle lights dimmed.jfif", caption="Movies", use_column_width=True)
     with col2:
-        st.image("image2.jpg", caption="Image 2", use_column_width=True)
+        st.image("Corporate buildings in Manhattan from below looking up_.jfif", caption="Corporations", use_column_width=True)
     with col3:
-        st.image("image3.jpg", caption="Image 3", use_column_width=True)
+        st.image("wide eyed lens shot vinyl record player in focus in the foreground background is a coffee shop but blurred with intense bokeh (1).jfif", caption="Music", use_column_width=True)
 
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
