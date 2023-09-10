@@ -21,7 +21,7 @@ def load_data(path):
 
 # Load movies, companies, and music data using the load_data function
 # Cached data will be used after the first load
-movies_df = load_data(llm_data/'movies.csv')  
+movies_df = load_data('llm_data/movies.csv')  
 companies_df = load_data('llm_data/webscrape.csv')  
 music_df = load_data('llm_data/musicdata.csv')  
 
