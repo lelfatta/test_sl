@@ -52,9 +52,9 @@ def main():
 
     for chat in reversed(st.session_state.chat_history):
         if chat["type"] == "user":
-            st.chat_message(chat["message"], author_name="You", user_type='user')
+            st.chat_message(chat["message"], user_type='user')
         else:
-            st.chat_message(chat["message"], author_name="Assistant", user_type='assistant')
+            st.chat_message(chat["message"], user_type='assistant')
 
 
     
