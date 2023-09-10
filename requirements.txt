@@ -1,0 +1,15 @@
+# Requirements for the GitHub repo
+
+# Web App Framework
+streamlit
+
+# For OpenAI GPT models
+openai
+
+# Data Manipulation Libraries
+pandas
+pandasql
+
+# SQL Toolkit and Object-Relational Mapping (ORM) library
+sqlalchemy==1.4.17
+
