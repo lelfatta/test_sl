@@ -46,8 +46,8 @@ def main():
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)   
             
-    # Add assistant response to chat history
-    st.session_state.chat_history.append({"role": "assistant", "content": full_response})
+        # Add assistant response to chat history
+        st.session_state.chat_history.append({"role": "assistant", "content": full_response})
 
 
     # Cache clear button
