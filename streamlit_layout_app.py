@@ -7,6 +7,10 @@ import time
 
 # Initialize Streamlit app
 def main():
+    # Initialize chat history if it doesn't exist
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
+        
     st.title('Multi-Domain Tabular Data Chat App')
 
     # Top 1/3 for images
@@ -21,10 +25,15 @@ def main():
 
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
-
-     # Initialize chat history if it doesn't exist
-    if 'chat_history' not in st.session_state:
+    
+    # Cache clear button
+    if st.button('Clear Chat History'):
+    # Clearing session state for chat_history
         st.session_state.chat_history = []
+    # Rerun the app to reflect the changes immediately
+        st.experimental_rerun()
+   
+     
 
    
     if user_input := st.chat_input('Type your question here:'):
@@ -49,14 +58,6 @@ def main():
         # Add assistant response to chat history
         st.session_state.chat_history.append({"role": "assistant", "content": full_response})
 
-
-    # Cache clear button
-    if st.button('Clear Chat History'):
-    # Clearing session state for chat_history
-        st.session_state.chat_history = []
-    # Rerun the app to reflect the changes immediately
-        st.experimental_rerun()
-   
 
   
 
