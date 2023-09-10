@@ -26,12 +26,6 @@ def main():
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
     
-    # Cache clear button
-    if st.button('Clear Chat History'):
-    # Clearing session state for chat_history
-        st.session_state.chat_history = []
-    # Rerun the app to reflect the changes immediately
-        st.experimental_rerun()
    
     for message in st.session_state.chat_history:
         with st.chat_message(message["role"]):
@@ -59,10 +53,13 @@ def main():
         # Add assistant response to chat history
         st.session_state.chat_history.append({"role": "assistant", "content": full_response})
 
-
-  
-
-
+    
+    # Cache clear button
+    if st.button('Clear Chat History'):
+    # Clearing session state for chat_history
+        st.session_state.chat_history = []
+    # Rerun the app to reflect the changes immediately
+        st.experimental_rerun()
 
 
 # Run the app
