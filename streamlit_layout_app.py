@@ -81,8 +81,8 @@ def generate_sql_query(context, prompt):
       max_tokens=100,
 
     )
-    #print(prompt)
-    #print(response)
+    print(prompt)
+    print(response)
     return response.choices[0].text.strip()
 
 context_for_sql = f"{metadata}\nUse like and wildcards on the where clauses. Have the sql show the most columns it can related to the user's query. The sql should provide flexibility showing more data than less. "
