@@ -23,12 +23,13 @@ def main():
     with col3:
         st.image("wide eyed lens shot vinyl record player in focus in the foreground background is a coffee shop but blurred with intense bokeh (1).jfif", caption="Music", use_column_width=True)
     
-    # Cache clear button
-    if st.button('Clear Chat History'):
-    # Clearing session state for chat_history
-        st.session_state.chat_history = []
-    # Rerun the app to reflect the changes immediately
-        st.experimental_rerun()
+    # Show 'Clear Chat History' button only if chat history is not empty
+    if len(st.session_state.chat_history) > 0:
+        if st.button('Clear Chat History'):
+            # Clearing session state for chat_history
+            st.session_state.chat_history = []
+            # Rerun the app to reflect the changes immediately
+            st.experimental_rerun()
 
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
