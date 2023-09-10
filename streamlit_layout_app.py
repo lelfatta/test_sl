@@ -33,7 +33,7 @@ def main():
     # Rerun the app to reflect the changes immediately
     #    st.experimental_rerun()
    
-    for message in st.session_state.messages:
+    for message in st.session_state.chat_history:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
