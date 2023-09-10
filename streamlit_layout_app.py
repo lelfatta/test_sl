@@ -27,11 +27,11 @@ def main():
     st.write("---")  # Horizontal line for clean transition
     
     # Cache clear button
-    #if st.button('Clear Chat History'):
+    if st.button('Clear Chat History'):
     # Clearing session state for chat_history
-    #    st.session_state.chat_history = []
+        st.session_state.chat_history = []
     # Rerun the app to reflect the changes immediately
-    #    st.experimental_rerun()
+        st.experimental_rerun()
    
     for message in st.session_state.chat_history:
         with st.chat_message(message["role"]):
