@@ -37,7 +37,7 @@ def main():
 
     # chat interface
     st.write("### Chat Interface")
-    user_input = st.text_input('Type your question here:')
+    user_input = st.chat_input('Type your question here:')
 
     # Add user input to chat history and display it
     if st.button('Submit'):
@@ -47,14 +47,17 @@ def main():
  
     
   
-    # Display chat history (above the user input to make it "frozen" at the bottom)
+   # Display chat history using st.chat_message
     st.write("### Chat History")
+
     for chat in reversed(st.session_state.chat_history):
         if chat["type"] == "user":
-            st.write(f'<div style="text-align: right; border-radius: 15px; background-color: lightblue; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
+            st.chat_message(chat["message"], author_name="You", user_type='user')
         else:
-            st.write(f'<div style="text-align: left; border-radius: 15px; background-color: #A1E887; padding: 10px; margin: 10px;">{chat["message"]}</div>', unsafe_allow_html=True)
+            st.chat_message(chat["message"], author_name="Assistant", user_type='assistant')
 
+
+    
 
     
    # Logic to generate a response can go here
