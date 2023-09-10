@@ -47,16 +47,7 @@ def main():
 
    # Display chat history using st.chat_message
     st.write("### Chat History")
-
-    for chat in reversed(st.session_state.chat_history):
-        if chat["type"] == "user":
-            st.chat_message("user").markdown(user_input)
-        else:
-            st.chat_message("assistant")
-
-        # Logic to generate a response can go here
-        
-        
+    
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
             message_placeholder= st.empty()
