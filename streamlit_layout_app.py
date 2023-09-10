@@ -22,6 +22,13 @@ def main():
         st.image("Corporate buildings in Manhattan from below looking up_.jfif", caption="Corporations", use_column_width=True)
     with col3:
         st.image("wide eyed lens shot vinyl record player in focus in the foreground background is a coffee shop but blurred with intense bokeh (1).jfif", caption="Music", use_column_width=True)
+    
+    # Cache clear button
+    if st.button('Clear Chat History'):
+    # Clearing session state for chat_history
+        st.session_state.chat_history = []
+    # Rerun the app to reflect the changes immediately
+        st.experimental_rerun()
 
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
@@ -54,13 +61,7 @@ def main():
         st.session_state.chat_history.append({"role": "assistant", "content": full_response})
 
     
-    # Cache clear button
-    if st.button('Clear Chat History'):
-    # Clearing session state for chat_history
-        st.session_state.chat_history = []
-    # Rerun the app to reflect the changes immediately
-        st.experimental_rerun()
-
+   
 
 # Run the app
 if __name__ == '__main__':
