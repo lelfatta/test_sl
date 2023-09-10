@@ -4,6 +4,74 @@
 import streamlit as st
 import random
 import time
+import openai
+import pandas as pd
+import pandasql as psql
+
+# Access API key from Streamlit secrets and set key 
+api_key = st.secrets["openai_api_key"]
+openai.api_key = api_key
+
+# Cache data to improve performance using Streamlit's caching mechanism
+@st.cache_data
+def load_data(path):
+    # Read the CSV file at the given 'path' into a Pandas DataFrame
+    df = pd.read_csv(path)
+    return df
+
+# Load movies, companies, and music data using the load_data function
+# Cached data will be used after the first load
+movies_df = load_data(llm_data/'movies.csv')  
+companies_df = load_data('llm_data/webscrape.csv')  
+music_df = load_data('llm_data/musicdata.csv')  
+
+# Cache data transformation to improve performance
+@st.cache_data
+def company_rev_rename(companies_df):
+    # Rename the 'Revenue (USD millions)' column to 'Revenue'
+
+@st.cache_data
+def generate_dataframe_metadata(dataframe_dict):
+    """
+    Generate metadata string for dataframes in the dictionary.
+    
+    Parameters:
+        dataframe_dict (dict): Dictionary of dataframe names and dataframes.
+        
+    Returns:
+        str: Metadata string.
+    """
+    df_metadata = "" 
+    
+    # Loop through each dataframe in the dictionary
+    for df_name, df in dataframe_dict.items():
+        # Add dataframe name
+        df_metadata += f"Dataframe: {df_name}\n"
+        
+        # Add column names and types
+        df_metadata += "Column Names and Types:\n"
+        for col, dtype in zip(df.columns, df.dtypes):
+            df_metadata += f"  - {col}: {dtype}\n"
+        
+        # Add sample row format
+        sample_row = df.iloc[0]
+        df_metadata += "Sample Row Format (assume the data values are fake):\n"
+        for col, value in sample_row.items():
+            df_metadata += f"  - {col}: {type(value).__name__} ({value})\n"
+        
+        # Add a newline for readability
+        df_metadata += "\n"
+    
+    return df_metadata  # Return the metadata string
+
+# Create a dictionary of dataframes
+dataframes = {'companies_df': companies_df, 'movies_df': movies_df, 'music_df': music_df}
+
+# Generate and store metadata
+metadata = generate_dataframe_metadata(dataframes)
+
+
+
 
 # Initialize Streamlit app
 def main():
