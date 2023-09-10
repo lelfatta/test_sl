@@ -44,7 +44,7 @@ def main():
      
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
-            
+            message_placeholder = st.empty()
             full_response= ""
             response = "Response from model"  # Placeholder response
             for chunk in response.split():
