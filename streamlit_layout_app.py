@@ -29,6 +29,9 @@ music_df = load_data('llm_data/musicdata.csv')
 @st.cache_data
 def company_rev_rename(companies_df):
     # Rename the 'Revenue (USD millions)' column to 'Revenue'
+    companies_df.rename(columns={'Revenue (USD millions)': 'Revenue'}, inplace=True)
+  return
+company_rev_rename(companies_df)
 
 @st.cache_data
 def generate_dataframe_metadata(dataframe_dict):
