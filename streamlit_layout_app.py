@@ -22,21 +22,11 @@ def main():
     # Clean transition
     st.write("---")  # Horizontal line for clean transition
 
-    
-    # Cache clear button
-    if st.button('Clear Chat History'):
-    # Clearing session state for chat_history
-        st.session_state.chat_history = []
-    # Rerun the app to reflect the changes immediately
-        st.experimental_rerun()
-   
-
-   # Initialize chat history if it doesn't exist
+     # Initialize chat history if it doesn't exist
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    # chat interface
-    st.write("### Chat Interface")
+   
     if user_input := st.chat_input('Type your question here:'):
         st.session_state.chat_history.append({"role": "user", "content": user_input})
         #Display user message in chat message container
@@ -58,6 +48,17 @@ def main():
             
     # Add assistant response to chat history
     st.session_state.chat_history.append({"role": "assistant", "content": full_response})
+
+
+    # Cache clear button
+    if st.button('Clear Chat History'):
+    # Clearing session state for chat_history
+        st.session_state.chat_history = []
+    # Rerun the app to reflect the changes immediately
+        st.experimental_rerun()
+   
+
+  
 
 
 
