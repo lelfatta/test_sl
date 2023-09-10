@@ -37,7 +37,7 @@ def main():
 
     # chat interface
     st.write("### Chat Interface")
-   if user_input := st.chat_input('Type your question here:'):
+    if user_input := st.chat_input('Type your question here:'):
         #Display user message in chat message container
         with st.chat_message("user"):
             st.markdown(user_input)
