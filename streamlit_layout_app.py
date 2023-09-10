@@ -37,15 +37,14 @@ def main():
 
     # chat interface
     st.write("### Chat Interface")
-    user_input = st.chat_input('Type your question here:')
-
-    # Add user input to chat history and display it
-    if st.button('Submit'):
-        st.session_state.chat_history.append({"type": "user", "message": user_input})
-
-    
+   if user_input := st.chat_input('Type your question here:'):
+        #Display user message in chat message container
+        with st.chat_message("user"):
+            st.markdown(user_input)
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
+       
  
-  
+
    # Display chat history using st.chat_message
     st.write("### Chat History")
 
@@ -55,15 +54,27 @@ def main():
         else:
             st.chat_message("assistant")
 
+        # Logic to generate a response can go here
+        
+        
+        # Display assistant response in chat message container
+        with st.chat_message("assistant"):
+            message_placeholder= st.empty()
+            full_response= ""
+            response = "Response from model"  # Placeholder response
+            for chunk in response.split():
+                
+                full_response += chunk + " "
+                time.sleep(0.05)
+                # Add a blinking cursor to simulate typing
+                message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(full_response)   
+            
+        # Add assistant response to chat history
+        st.session_state.chat_history.append({"role": "assistant", "content": response})
 
-   
-   # Logic to generate a response can go here
-    response = "Response from model"  # Placeholder response
-    st.session_state.chat_history.append({"type": "bot", "message": response})
-    
-   
+        
 
-  
 
 # Run the app
 if __name__ == '__main__':
