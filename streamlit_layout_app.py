@@ -45,21 +45,18 @@ def main():
 
     
  
-    
   
    # Display chat history using st.chat_message
     st.write("### Chat History")
 
     for chat in reversed(st.session_state.chat_history):
         if chat["type"] == "user":
-            st.chat_message(chat["message"], user_type='user')
+            st.chat_message("user").markdown(user_input)
         else:
-            st.chat_message(chat["message"], user_type='assistant')
+            st.chat_message("assistant")
 
 
-    
-
-    
+   
    # Logic to generate a response can go here
     response = "Response from model"  # Placeholder response
     st.session_state.chat_history.append({"type": "bot", "message": response})
