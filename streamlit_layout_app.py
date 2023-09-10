@@ -68,11 +68,76 @@ def generate_dataframe_metadata(dataframe_dict):
     return df_metadata  # Return the metadata string
 
 # Create a dictionary of dataframes
-dataframes = {'companies_df': companies_df, 'movies_df': movies_df, 'music_df': music_df}
+df_dict = {'companies_df': companies_df, 'movies_df': movies_df, 'music_df': music_df}
 
 # Generate and store metadata
-metadata = generate_dataframe_metadata(dataframes)
+metadata = generate_dataframe_metadata(df_dict)
 
+#takes user input and queries chosen llm to generate sql query
+def generate_sql_query(context, prompt):
+    response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt=f"{context}\n\nUser Query: {prompt}\n\nSQL Query:",
+      max_tokens=100,
+
+    )
+    #print(prompt)
+    #print(response)
+    return response.choices[0].text.strip()
+
+context_for_sql = f"{df_metadata}\nUse like and wildcards on the where clauses. Have the sql show the most columns it can related to the user's query. The sql should provide flexibility showing more data than less. "
+
+#Extracts the table name from the returned SQL query string. Case-insensitive.
+def extract_table_from_sql(sql_query):
+    # Convert to uppercase to make it case-insensitive
+    sql_query_up = sql_query.upper()
+
+    # Find the starting index of 'FROM ' substring
+    from_index = sql_query_up.index('FROM ') + 5
+
+    # Extract the string after 'FROM '
+    tail_str = sql_query_up[from_index:]
+
+    # Find the first space, or the end of string, to extract the table name
+    space_index = tail_str.find('\n')
+    if space_index == -1:  # Handle case where 'FROM' is the last clause
+        space_index = len(tail_str)
+
+    # Extract and return table name
+    return tail_str[:space_index].strip()
+
+#Executes a SQL query on a Pandas DataFrame specified in a dictionary, returning the result as another DataFrame. Also case-insensitive.
+def execute_sql_query(sql_query, df_dict):
+    # Extract the table name from the SQL query
+    table_in_query = extract_table_from_sql(sql_query).lower()  # Convert to lowercase
+
+    # Convert df_dict keys to lowercase for case-insensitive comparison
+    lower_df_dict = {k.lower(): v for k, v in df_dict.items()}
+
+    # Check if the table name exists in the df_dict
+    if table_in_query in lower_df_dict:
+        # Get the actual dataframe from the dictionary
+        target_df = lower_df_dict[table_in_query]
+
+        # Execute the query on the target dataframe
+        result_df = psql.sqldf(sql_query)
+        return result_df
+    else:
+        return f"Table {table_in_query} not found."
+
+#convert the dataframe output into markdown for LLM ingestion
+def df_to_markdown(df):
+    return "```markdown\n" + df.to_markdown() + "\n```"
+
+#generate the final answer to the user's query 
+def generate_final_answer(context, prompt):
+    response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt=f"{context}\n\nSQL Query Result:\n{result_markdown}\n\nUser Query: {prompt}\n\nAnswer:",
+      max_tokens=200
+    )
+    #print(response)
+    return response.choices[0].text.strip()
 
 
 
@@ -112,15 +177,28 @@ def main():
 
     if user_input := st.chat_input('Type your question here:'):
         st.session_state.chat_history.append({"role": "user", "content": user_input})
+        
         #Display user message in chat message container
         with st.chat_message("user"):
             st.markdown(user_input)
+
+        #generate sql
+        sql_query = generate_sql_query(context_for_sql, user_input)
+        #table_in_query = extract_table_from_sql(sql_query)
+        #execute the generated sql query
+        sql_result = execute_sql_query(sql_query, df_dict)
+        #convert the df output (sql_result) into markdown
+        result_markdown = df_to_markdown(sql_result)
+
+        #create final context for prompt (prompt engineering) and generate final answer
+        final_context = f"{df_metadata}\nBased on this data and context, answer the user query. Provide as much data context as possible."
+        final_answer = generate_final_answer(final_context, user_query)
      
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response= ""
-            response = "Response from model"  # Placeholder response
+            response = final_answer  # Placeholder response
             for chunk in response.split():
                 
                 full_response += chunk + " "
