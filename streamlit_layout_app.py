@@ -48,23 +48,23 @@ def main():
    # Display chat history using st.chat_message
     st.write("### Chat History")
     
-        # Display assistant response in chat message container
-        with st.chat_message("assistant"):
-            message_placeholder= st.empty()
-            full_response= ""
-            response = "Response from model"  # Placeholder response
-            for chunk in response.split():
-                
-                full_response += chunk + " "
-                time.sleep(0.05)
-                # Add a blinking cursor to simulate typing
-                message_placeholder.markdown(full_response + "▌")
-            message_placeholder.markdown(full_response)   
+    # Display assistant response in chat message container
+    with st.chat_message("assistant"):
+        message_placeholder= st.empty()
+        full_response= ""
+        response = "Response from model"  # Placeholder response
+        for chunk in response.split():
             
-        # Add assistant response to chat history
-        st.session_state.chat_history.append({"role": "assistant", "content": response})
-
+            full_response += chunk + " "
+            time.sleep(0.05)
+            # Add a blinking cursor to simulate typing
+            message_placeholder.markdown(full_response + "▌")
+        message_placeholder.markdown(full_response)   
         
+    # Add assistant response to chat history
+    st.session_state.chat_history.append({"role": "assistant", "content": response})
+    
+
 
 
 # Run the app
