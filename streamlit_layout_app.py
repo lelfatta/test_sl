@@ -33,9 +33,10 @@ def main():
     # Rerun the app to reflect the changes immediately
     #    st.experimental_rerun()
    
-     
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-   
     if user_input := st.chat_input('Type your question here:'):
         st.session_state.chat_history.append({"role": "user", "content": user_input})
         #Display user message in chat message container
