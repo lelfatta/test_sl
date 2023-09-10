@@ -24,7 +24,7 @@ def main():
         st.image("wide eyed lens shot vinyl record player in focus in the foreground background is a coffee shop but blurred with intense bokeh (1).jfif", caption="Music", use_column_width=True)
     
     # Show 'Clear Chat History' button only if chat history is not empty
-    if not st.session_state.chat_history = False:
+    if not st.session_state.chat_history == False:
         if st.button('Clear Chat History'):
             # Clearing session state for chat_history
             st.session_state.chat_history = []
