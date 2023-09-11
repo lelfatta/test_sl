@@ -126,8 +126,8 @@ def execute_sql_query(sql_query, df_dict):
         return f"Table {table_in_query} not found."
 
 #convert the dataframe output into markdown for LLM ingestion
-def df_to_markdown(df):
-    return "```markdown\n" + df.to_markdown() + "\n```"
+#def df_to_markdown(df):
+#    return df.to_markdown()
 
 #generate the final answer to the user's query 
 def generate_final_answer(result_markdown, prompt):
@@ -190,11 +190,11 @@ def main():
         sql_result = execute_sql_query(sql_query, df_dict)
         print(sql_result)
         #convert the df output (sql_result) into markdown
-        result_markdown = df_to_markdown(sql_result)
+        #result_markdown = df_to_markdown(sql_result)
 
         #create final context for prompt (prompt engineering) and generate final answer
         #final_context = "Based on this data and context, answer the user query.Provide as much data context but be as concise as possible."
-        final_answer = generate_final_answer(result_markdown, user_input)
+        final_answer = generate_final_answer(sql_result, user_input)
      
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
