@@ -86,7 +86,7 @@ def generate_sql_query(context, prompt):
     return response
 
 
-context_for_sql = f"{metadata}"#\nUse like and wildcards on where clauses. Have the sql show the most columns it can related. The sql's tables will be dataframes names. Use the metadata to format the data objects correctly.Limit whitespace "
+context_for_sql = f"{metadata}\nUse like and wildcards on where clauses. The sql's tables will be dataframes names. Use the metadata to format the data objects correctly. use 1 table. limit whitespace"
 
 #Extracts the table name from the returned SQL query string. Case-insensitive.
 def extract_table_from_sql(sql_query):
