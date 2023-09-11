@@ -75,17 +75,18 @@ metadata = generate_dataframe_metadata(df_dict)
 
 #takes user input and queries chosen llm to generate sql query
 def generate_sql_query(context, prompt):
-    response = openai.Completion.create(
-      engine="text-davinci-002",
-      prompt=f"Output only a Sql Query to help with this User Query:{prompt}, using this context: {context}",
-      max_tokens=100,
-
+    response = openai.ChatCompletion.create(
+       model="gpt-3.5-turbo",
+       messages= [{"role": "system", "content":"generate ONLY Sql code to help with the User Query using metadata for context" },
+          {"role": "user", "content": f"{prompt}, \n {context}"}          
+       ]
+       
     )
-    #print(prompt)
-    print(response)
-    return response.choices[0].text.strip()
+    
+    return response
 
-context_for_sql = f"{metadata}\nUse like and wildcards on where clauses. Have the sql show the most columns it can related. The sql's tables will be dataframes names. Use the metadata to format the data objects correctly.Limit whitespace "
+
+context_for_sql = f"{metadata}"#\nUse like and wildcards on where clauses. Have the sql show the most columns it can related. The sql's tables will be dataframes names. Use the metadata to format the data objects correctly.Limit whitespace "
 
 #Extracts the table name from the returned SQL query string. Case-insensitive.
 def extract_table_from_sql(sql_query):
@@ -130,14 +131,16 @@ def execute_sql_query(sql_query, df_dict):
 #    return df.to_markdown()
 
 #generate the final answer to the user's query 
-def generate_final_answer(result_markdown, prompt):
-    response = openai.Completion.create(
-      engine="text-davinci-002",
-      prompt=f" Use this data: SQL Query Result:\n{result_markdown}\n Q: {prompt} \n A:",
-      max_tokens=200
+def generate_final_answer(context, prompt):
+    response = openai.ChatCompletion.create(
+       model="gpt-3.5-turbo",
+       messages= [{"role": "system", "content":"Use the data to answer the query concisely, but be pleasant" },
+          {"role": "user", "content": f"{prompt}, \n {context}"}          
+       ]
+       
     )
     #print(response)
-    return response.choices[0].text.strip()
+    return response
 
 
 
@@ -185,16 +188,17 @@ def main():
         #generate sql
         sql_query = generate_sql_query(context_for_sql, user_input)
         print(sql_query)
-        #table_in_query = extract_table_from_sql(sql_query)
+        table_in_query = extract_table_from_sql(sql_query.choices[0].message.content)
         #execute the generated sql query
-        sql_result = execute_sql_query(sql_query, df_dict)
+        sql_result = execute_sql_query(sql_query.choices[0].message.content, df_dict)
         print(sql_result)
         #convert the df output (sql_result) into markdown
         #result_markdown = df_to_markdown(sql_result)
 
         #create final context for prompt (prompt engineering) and generate final answer
-        #final_context = "Based on this data and context, answer the user query.Provide as much data context but be as concise as possible."
-        final_answer = generate_final_answer(sql_result, user_input)
+        #final_context = f"{sql_result}\nBased on this data and context, answer the user query.Provide as much data context but be as concise as possible."
+        final_chat_object = generate_final_answer(sql_result, user_input)
+        final_answer = final_chat_object.choices[0].message.content
      
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
