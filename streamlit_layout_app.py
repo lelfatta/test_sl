@@ -79,7 +79,8 @@ def generate_sql_query(context, prompt):
        model="gpt-3.5-turbo",
        messages= [{"role": "system", "content":"generate ONLY Sql to help constrain and answer the user using metadata for data context and formatting, show all columns" },
           {"role": "user", "content": f"{prompt}, \n {context}"}          
-       ]
+       ],
+       temperature= .1 
        
     )
     
