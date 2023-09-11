@@ -9,6 +9,7 @@ openai
 # Data Manipulation Libraries
 pandas
 pandasql
+tabulate
 
 # SQL Toolkit and Object-Relational Mapping (ORM) library
 sqlalchemy==1.4.47
