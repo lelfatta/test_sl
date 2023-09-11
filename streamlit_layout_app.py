@@ -184,9 +184,11 @@ def main():
 
         #generate sql
         sql_query = generate_sql_query(context_for_sql, user_input)
+        print(sql_query)
         #table_in_query = extract_table_from_sql(sql_query)
         #execute the generated sql query
         sql_result = execute_sql_query(sql_query, df_dict)
+        print(sql_result)
         #convert the df output (sql_result) into markdown
         result_markdown = df_to_markdown(sql_result)
 
