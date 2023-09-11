@@ -194,7 +194,7 @@ def main():
 
         #create final context for prompt (prompt engineering) and generate final answer
         final_context = f"{metadata}\nBased on this data and context, answer the user query. Provide as much data context as possible."
-        final_answer = generate_final_answer(final_context, user_query)
+        final_answer = generate_final_answer(final_context, user_input)
      
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
