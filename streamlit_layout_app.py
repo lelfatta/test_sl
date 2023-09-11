@@ -193,7 +193,7 @@ def main():
         result_markdown = df_to_markdown(sql_result)
 
         #create final context for prompt (prompt engineering) and generate final answer
-        final_context = f"Based on this data and context, answer the user query. Provide as much information as possible in the token limit."
+        final_context = "Based on this data and context, answer the user query.Provide as much data context but be as concise as possible."
         final_answer = generate_final_answer(final_context, result_markdown, user_input)
      
         # Display assistant response in chat message container
