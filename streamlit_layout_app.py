@@ -17,6 +17,10 @@ openai.api_key = api_key
 def load_data(path):
     # Read the CSV file at the given 'path' into a Pandas DataFrame
     df = pd.read_csv(path)
+     # Check if the path contains "webscrape.csv"
+    if "webscrape.csv" in path:
+        company_rev_rename(df)  # Rename column if the condition is met
+        
     return df
 
 # Load movies, companies, and music data using the load_data function
@@ -31,7 +35,7 @@ def company_rev_rename(companies_df):
     # Rename the 'Revenue (USD millions)' column to 'Revenue'
     companies_df.rename(columns={'Revenue (USD millions)': 'Revenue'}, inplace=True)
     return
-company_rev_rename(companies_df)
+#company_rev_rename(companies_df)
 
 @st.cache_data
 def generate_dataframe_metadata(dataframe_dict):
