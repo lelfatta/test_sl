@@ -44,7 +44,7 @@ def generate_dataframe_metadata(dataframe_dict):
     Returns:
         str: Metadata string.
     """
-    df_metadata = "" 
+    df_metadata = "Metadata:\n" 
     
     # Loop through each dataframe in the dictionary
     for df_name, df in dataframe_dict.items():
@@ -85,7 +85,7 @@ def generate_sql_query(context, prompt):
     print(response)
     return response.choices[0].text.strip()
 
-context_for_sql = f"{metadata}\nUse like and wildcards on the where clauses. Have the sql show the most columns it can related to the user's query. The sql's tables will be dataframes names."
+context_for_sql = f"{metadata}\nUse like and wildcards on the where clauses. Have the sql show the most columns it can related to the user's query. The sql's tables will be dataframes names. Use the metadata to format the data objects correctly. "
 
 #Extracts the table name from the returned SQL query string. Case-insensitive.
 def extract_table_from_sql(sql_query):
