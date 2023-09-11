@@ -77,7 +77,7 @@ metadata = generate_dataframe_metadata(df_dict)
 def generate_sql_query(context, prompt):
     response = openai.ChatCompletion.create(
        model="gpt-3.5-turbo",
-       messages= [{"role": "system", "content":"generate ONLY Sql code to help with the User Query using metadata for context" },
+       messages= [{"role": "system", "content":"generate ONLY Sql code to help with the User Query using metadata for data context and formatting (especially date like data), show all columns" },
           {"role": "user", "content": f"{prompt}, \n {context}"}          
        ]
        
@@ -86,7 +86,7 @@ def generate_sql_query(context, prompt):
     return response
 
 
-context_for_sql = f"{metadata}\nUse like and wildcards on where clauses. The sql's tables will be dataframes names. Use the metadata to format the data objects correctly. use 1 table. limit whitespace"
+context_for_sql = f"{metadata}\nUse like and wildcards on where clauses. The sql's tables will be dataframe names. Use the metadata to format the data objects correctly. use 1 table. limit whitespace"
 
 #Extracts the table name from the returned SQL query string. Case-insensitive.
 def extract_table_from_sql(sql_query):
