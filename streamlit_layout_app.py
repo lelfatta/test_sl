@@ -77,7 +77,7 @@ metadata = generate_dataframe_metadata(df_dict)
 def generate_sql_query(context, prompt):
     response = openai.Completion.create(
       engine="text-davinci-002",
-      prompt=f"{context}\n\nUser Query: {prompt}\n\nSQL Query:",
+      prompt=f"{context}\nUser Query: {prompt}\n\nSQL Query:",
       max_tokens=100,
 
     )
@@ -130,10 +130,10 @@ def df_to_markdown(df):
     return "```markdown\n" + df.to_markdown() + "\n```"
 
 #generate the final answer to the user's query 
-def generate_final_answer(context, result_markdown, prompt):
+def generate_final_answer(result_markdown, prompt):
     response = openai.Completion.create(
       engine="text-davinci-002",
-      prompt=f"{context}\n\nSQL Query Result:\n{result_markdown}\n\nUser Query: {prompt}\n\nAnswer:",
+      prompt=f"SQL Query Result:\n{result_markdown}\n\nUser Query: {prompt}\n\nAnswer:",
       max_tokens=200
     )
     #print(response)
@@ -193,8 +193,8 @@ def main():
         result_markdown = df_to_markdown(sql_result)
 
         #create final context for prompt (prompt engineering) and generate final answer
-        final_context = "Based on this data and context, answer the user query.Provide as much data context but be as concise as possible."
-        final_answer = generate_final_answer(final_context, result_markdown, user_input)
+        #final_context = "Based on this data and context, answer the user query.Provide as much data context but be as concise as possible."
+        final_answer = generate_final_answer(result_markdown, user_input)
      
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
