@@ -11,5 +11,5 @@ pandas
 pandasql
 
 # SQL Toolkit and Object-Relational Mapping (ORM) library
-sqlalchemy==1.4.50
+sqlalchemy==1.4.47
 
