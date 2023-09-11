@@ -77,7 +77,7 @@ metadata = generate_dataframe_metadata(df_dict)
 def generate_sql_query(context, prompt):
     response = openai.Completion.create(
       engine="text-davinci-002",
-      prompt=f"{context}\nUser Query: {prompt}\n Output just a Sql Query to help",
+      prompt=f"Output only a Sql Query to help with this User Query:{prompt}, using this context: {context}",
       max_tokens=100,
 
     )
