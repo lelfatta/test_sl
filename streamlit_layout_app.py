@@ -77,7 +77,7 @@ metadata = generate_dataframe_metadata(df_dict)
 def generate_sql_query(context, prompt):
     response = openai.ChatCompletion.create(
        model="gpt-3.5-turbo",
-       messages= [{"role": "system", "content":"generate ONLY Sql code to help with the User Query using metadata for data context and formatting (especially date-like data), show all columns" },
+       messages= [{"role": "system", "content":"generate ONLY Sql code to help with the User Query using metadata for context." },
           {"role": "user", "content": f"{prompt}, \n {context}"}          
        ]
        
