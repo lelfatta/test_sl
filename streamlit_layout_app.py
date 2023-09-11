@@ -12,6 +12,14 @@ import pandasql as psql
 api_key = st.secrets["openai_api_key"]
 openai.api_key = api_key
 
+# Cache data transformation to improve performance
+@st.cache_data
+def company_rev_rename(companies_df):
+    # Rename the 'Revenue (USD millions)' column to 'Revenue'
+    companies_df.rename(columns={'Revenue (USD millions)': 'Revenue'}, inplace=True)
+    return
+#company_rev_rename(companies_df)
+
 # Cache data to improve performance using Streamlit's caching mechanism
 @st.cache_data
 def load_data(path):
@@ -29,13 +37,6 @@ movies_df = load_data("llm_data/movies.csv")
 companies_df = load_data('llm_data/webscrape.csv')  
 music_df = load_data('llm_data/musicdata.csv')  
 
-# Cache data transformation to improve performance
-@st.cache_data
-def company_rev_rename(companies_df):
-    # Rename the 'Revenue (USD millions)' column to 'Revenue'
-    companies_df.rename(columns={'Revenue (USD millions)': 'Revenue'}, inplace=True)
-    return
-#company_rev_rename(companies_df)
 
 @st.cache_data
 def generate_dataframe_metadata(dataframe_dict):
