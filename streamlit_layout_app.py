@@ -57,10 +57,10 @@ def generate_dataframe_metadata(dataframe_dict):
             df_metadata += f"  - {col}: {dtype}\n"
         
         # Add sample row format
-        sample_row = df.iloc[0]
-        df_metadata += "Sample Row Format (assume the data values are fake):\n"
-        for col, value in sample_row.items():
-            df_metadata += f"  - {col}: {type(value).__name__} ({value})\n"
+        #sample_row = df.iloc[0]
+        #df_metadata += "Sample Row Format (assume the data values are fake):\n"
+        #for col, value in sample_row.items():
+         #   df_metadata += f"  - {col}: {type(value).__name__} ({value})\n"
         
         # Add a newline for readability
         df_metadata += "\n"
