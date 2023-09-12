@@ -160,8 +160,10 @@ def generate_final_answer(context, prompt):
     )
     #print(response)
     return response
-
-
+#########################################################################################################################
+sample_movie = movies_df.sample(1).to_dict(orient='records')[0]
+sample_company = companies_df.sample(1).to_dict(orient='records')[0]
+sample_music = music_df.sample(1).to_dict(orient='records')[0]
 
 # Initialize Streamlit app
 def main():
@@ -175,11 +177,17 @@ def main():
     st.write("### Image Section")
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image("Romantisized golden era movie theater screen from a side angle lights dimmed.jfif", caption="Movies", use_column_width=True)
+        st.image("Romantisized golden era movie theater screen from a side angle lights dimmed.jfif", caption="Movies by Dalle2", use_column_width=True)
+        st.write("Sample Data:")
+        st.write(sample_movie)
     with col2:
-        st.image("Corporate buildings in Manhattan from below looking up_.jfif", caption="Corporations", use_column_width=True)
+        st.image("Corporate buildings in Manhattan from below looking up_.jfif", caption="Corporations by Dalle2", use_column_width=True)
+        st.write("Sample Data:")
+        st.write(sample_company)
     with col3:
-        st.image("wide eyed lens shot vinyl record player in focus in the foreground background is a coffee shop but blurred with intense bokeh (1).jfif", caption="Music", use_column_width=True)
+        st.image("wide eyed lens shot vinyl record player in focus in the foreground background is a coffee shop but blurred with intense bokeh (1).jfif", caption="Music by Dalle2", use_column_width=True)
+        st.write("Sample Data:")
+        st.write(sample_music)
     
     # Show 'Clear Chat History' button only if chat history is not empty
     if st.session_state.chat_history:
