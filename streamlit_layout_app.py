@@ -186,14 +186,14 @@ def main():
         st.image("wide eyed lens shot vinyl record player in focus in the foreground background is a coffee shop but blurred with intense bokeh (1).jfif", caption="Music by Dalle2", use_column_width=True)
                 
     with st.expander("See movie sample data"):
-        st.write("Sample Data:")
+        st.write("Use this to help write questions!")
         st.table(sample_movie)
 
-    with st.expander("See company sample data"):
+    with st.expander("Use this to help write questions!"):
         st.write("Sample Data:")
         st.table(sample_company)
 
-    with st.expander("See music sample data"):
+    with st.expander("Use this to help write questions!"):
         st.write("Sample Data:")
         st.table(sample_music)
              
