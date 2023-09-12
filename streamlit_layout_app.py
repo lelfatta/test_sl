@@ -82,7 +82,7 @@ metadata = generate_dataframe_metadata(df_dict)
 def generate_sql_query(context, prompt):
     response = openai.ChatCompletion.create(
        model="gpt-3.5-turbo",
-       messages= [{"role": "system", "content":"generate ONLY Sql to help constrain and answer the user using metadata for data context and formatting, show all columns" },
+       messages= [{"role": "system", "content":"generate ONLY Sql to provide data for the User Query. If multiple queries are needed to get all the data, include a --multiple at the very end"},
           {"role": "user", "content": f"{prompt}, \n {context}"}          
        ],
        temperature= .1 
@@ -92,7 +92,7 @@ def generate_sql_query(context, prompt):
     return response
 
 
-context_for_sql = f"Write only sql code. {metadata}\nUse like and wildcards on where clauses. The sql's tables will be dataframe names. Use the metadata to format the data objects correctly."
+context_for_sql = f"{metadata}\nUse like and wildcards on where clauses. The sql's tables will be dataframe names. Use metadata for data context and formatting, show all columns"
 
 #Extracts the table name from the returned SQL query string. Case-insensitive.
 def extract_table_from_sql(sql_query):
@@ -115,6 +115,8 @@ def extract_table_from_sql(sql_query):
 
 #Executes a SQL query on a Pandas DataFrame specified in a dictionary, returning the result as another DataFrame. Also case-insensitive.
 def execute_sql_query(sql_query, df_dict):
+    if sql_query.endswith("--multiple"):
+         return "Need to split question into multiple queries to get your data. Please break your question into multiple questions"
     # Extract the table name from the SQL query
     table_in_query = extract_table_from_sql(sql_query).lower()  # Convert to lowercase
 
@@ -140,7 +142,7 @@ def execute_sql_query(sql_query, df_dict):
 def generate_final_answer(context, prompt):
     response = openai.ChatCompletion.create(
        model="gpt-3.5-turbo",
-       messages= [{"role": "system", "content":"Use the data to answer the query concisely, but be pleasant" },
+       messages= [{"role": "system", "content":"Use the data to answer the query concisely, but be pleasant. Integrate the query in the answer" },
           {"role": "user", "content": f"{prompt}, \n {context}"}          
        ]
        
@@ -202,7 +204,7 @@ def main():
         #result_markdown = df_to_markdown(sql_result)
 
         #create final context for prompt (prompt engineering) and generate final answer
-        #final_context = f"{sql_result}\nBased on this data and context, answer the user query.Provide as much data context but be as concise as possible."
+        final_context = f"Data: {sql_result}\nBased on this data and context, answer the user query."
         final_chat_object = generate_final_answer(sql_result, user_input)
         final_answer = final_chat_object.choices[0].message.content
      
