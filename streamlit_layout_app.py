@@ -176,8 +176,8 @@ def main():
         
     st.title('Multi-Dataset Tabular Data Chat App')
     
-    show_sidebar = st.sidebar.checkbox("Show Sidebar", value=True)  # Default set to visible
-    if show_sidebar:
+    #show_sidebar = st.sidebar.checkbox("Show Sidebar", value=True)  # Default set to visible
+    #if show_sidebar:
         st.sidebar.title("About This App")
         st.sidebar.markdown("""
         This app allows you to ask questions about three different datasets spanning three different topics: Movies, Corporations, and Music.
