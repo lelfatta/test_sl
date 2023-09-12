@@ -191,7 +191,7 @@ def main():
     For example, any question that would need multiple queries to answer.
     """)
 
-    st.sidebar.expander("Here are the Kaggle datasets I am using for this project:"):
+    st.sidebar.markdown("Here are the Kaggle datasets I am using for this project:"):
     st.sidebar.markdown("""
         - [**Movies**](https://www.kaggle.com/datasets/danielgrijalvas/movies)
         - [**Corporations**](https://www.kaggle.com/datasets/claymaker/us-largest-companies)
