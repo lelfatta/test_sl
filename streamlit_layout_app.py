@@ -189,12 +189,12 @@ def main():
         st.write("Use this to help write questions!")
         st.table(sample_movie)
 
-    with st.expander("Use this to help write questions!"):
-        st.write("Sample Data:")
+    with st.expander("See company sample data"):
+        st.write("Use this to help write questions!")
         st.table(sample_company)
 
-    with st.expander("Use this to help write questions!"):
-        st.write("Sample Data:")
+    with st.expander("See music sample data"):
+        st.write("Use this to help write questions!")
         st.table(sample_music)
              
          
