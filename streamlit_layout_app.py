@@ -186,9 +186,9 @@ def main():
         For example, any question that would need multiple queries to answer. 
 
         Here are the Kaggle datasets I am using for this project:    
-        - [**Movies**:](https://www.kaggle.com/datasets/danielgrijalvas/movies)
-        - [**Corporations**:](https://www.kaggle.com/datasets/claymaker/us-largest-companies)
-        - [**Music Sales**:](https://www.kaggle.com/datasets/andrewmvd/music-sales)
+        - [**Movies**](https://www.kaggle.com/datasets/danielgrijalvas/movies)
+        - [**Corporations**](https://www.kaggle.com/datasets/claymaker/us-largest-companies)
+        - [**Music Sales**](https://www.kaggle.com/datasets/andrewmvd/music-sales)
         
         If the chatbot is not working, please reach out to me on my [LinkedIn](www.linkedin.com/in/levielfattal) 
         as my OpenAI account may have ran out of preloaded funding.  
