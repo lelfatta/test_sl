@@ -142,7 +142,7 @@ def execute_sql_query(sql_query, df_dict):
 def generate_final_answer(context, prompt):
     response = openai.ChatCompletion.create(
        model="gpt-3.5-turbo",
-       messages= [{"role": "system", "content":"Use the data to answer the query concisely, but be pleasant. Integrate the query in the answer" },
+       messages= [{"role": "system", "content":"Use this data to answer the query concisely, but be pleasant. Integrate the query in the answer" },
           {"role": "user", "content": f"{prompt}, \n {context}"}          
        ]
        
@@ -204,7 +204,7 @@ def main():
         #result_markdown = df_to_markdown(sql_result)
 
         #create final context for prompt (prompt engineering) and generate final answer
-        final_context = f"Data: {sql_result}\nBased on this data and context, answer the user query."
+        final_context = f"Data: {sql_result}\nBased on this specific data and context, answer the user query."
         final_chat_object = generate_final_answer(sql_result, user_input)
         final_answer = final_chat_object.choices[0].message.content
      
