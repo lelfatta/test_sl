@@ -105,13 +105,24 @@ def extract_table_from_sql(sql_query):
     # Extract the string after 'FROM '
     tail_str = sql_query_up[from_index:]
 
-    # Find the first space, or the end of string, to extract the table name
-    space_index = tail_str.find('\n')
-    if space_index == -1:  # Handle case where 'FROM' is the last clause
-        space_index = len(tail_str)
+    # Find the first space, or the linebreak to extract the table name
+    space_index = tail_str.find(' ')
+    linebreak_index = tail_str.find('\n') 
+    # Initialize final_index
+    final_index = -1
+
+    # Check if either index is -1 (substring not found)
+    if space_index == -1 and linebreak_index == -1:
+        final_index = len(tail_str)
+    elif space_index == -1:
+        final_index = linebreak_index
+    elif linebreak_index == -1:
+        final_index = space_index
+    else:
+        final_index = min(space_index, linebreak_index)
 
     # Extract and return table name
-    return tail_str[:space_index].strip()
+    return tail_str[:final_index].strip()
 
 #Executes a SQL query on a Pandas DataFrame specified in a dictionary, returning the result as another DataFrame. Also case-insensitive.
 def execute_sql_query(sql_query, df_dict):
