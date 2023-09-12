@@ -178,25 +178,25 @@ def main():
     
     #show_sidebar = st.sidebar.checkbox("Show Sidebar", value=True)  # Default set to visible
     #if show_sidebar:
-        st.sidebar.title("About This App")
+    st.sidebar.title("About This App")
+    st.sidebar.markdown("""
+    This app allows you to ask questions about three different datasets spanning three different topics: Movies, Corporations, and Music.
+    The app currently uses OpenAI's API to take in your questions, generate a SQL query to get relevant data for, and then use that data to answer your question.
+    As of 9/12/23, this app is a barebones proof of concept project. The chatbot does not have any short term memory and will not work well on certain questions. 
+    For example, any question that would need multiple queries to answer.
+    """)
+
+    with st.sidebar.expander("Here are the Kaggle datasets I am using for this project:"):
         st.sidebar.markdown("""
-        This app allows you to ask questions about three different datasets spanning three different topics: Movies, Corporations, and Music.
-        The app currently uses OpenAI's API to take in your questions, generate a SQL query to get relevant data for, and then use that data to answer your question.
-        As of 9/12/23, this app is a barebones proof of concept project. The chatbot does not have any short term memory and will not work well on certain questions. 
-        For example, any question that would need multiple queries to answer.
+        - [**Movies**](https://www.kaggle.com/datasets/danielgrijalvas/movies)
+        - [**Corporations**](https://www.kaggle.com/datasets/claymaker/us-largest-companies)
+        - [**Music Sales**](https://www.kaggle.com/datasets/andrewmvd/music-sales)
         """)
-    
-        with st.sidebar.expander("Here are the Kaggle datasets I am using for this project:"):
-            st.sidebar.markdown("""
-            - [**Movies**](https://www.kaggle.com/datasets/danielgrijalvas/movies)
-            - [**Corporations**](https://www.kaggle.com/datasets/claymaker/us-largest-companies)
-            - [**Music Sales**](https://www.kaggle.com/datasets/andrewmvd/music-sales)
-            """)
-    
-        st.sidebar.markdown("""
-        If the chatbot is not working, please reach out to me on my [LinkedIn](www.linkedin.com/in/levielfattal) 
-        so I can refill my OpenAI account.
-        """)
+
+    st.sidebar.markdown("""
+    If the chatbot is not working, please reach out to me on my [LinkedIn](www.linkedin.com/in/levielfattal) 
+    so I can refill my OpenAI account.
+    """)
 
 
     # Top 1/3 for images
