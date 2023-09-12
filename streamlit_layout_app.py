@@ -126,8 +126,8 @@ def extract_table_from_sql(sql_query):
 
 #Executes a SQL query on a Pandas DataFrame specified in a dictionary, returning the result as another DataFrame. Also case-insensitive.
 def execute_sql_query(sql_query, df_dict):
-    if sql_query.endswith("--multiple"):
-         return "Need to split question into multiple queries to get your data. Please break your question into multiple questions"
+ #   if sql_query.endswith("--multiple"):
+  #       return "Need to split question into multiple queries to get your data. Please break your question into multiple questions"
     # Extract the table name from the SQL query
     table_in_query = extract_table_from_sql(sql_query).lower()  # Convert to lowercase
 
