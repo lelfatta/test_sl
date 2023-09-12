@@ -197,9 +197,7 @@ def main():
         - [**Corporations**](https://www.kaggle.com/datasets/claymaker/us-largest-companies)
         - [**Music Sales**](https://www.kaggle.com/datasets/andrewmvd/music-sales)
         """)
-
-   
-
+    st.sidebar.write("---")  # Horizontal line for clean transition
 
     # Top 1/3 for images
     st.write("###")
