@@ -82,7 +82,7 @@ metadata = generate_dataframe_metadata(df_dict)
 def generate_sql_query(context, prompt):
     response = openai.ChatCompletion.create(
        model="gpt-3.5-turbo",
-       messages= [{"role": "system", "content":"generate ONLY Sql to provide data for the User Query. If multiple queries are needed to get all the data, include a --multiple at the very end"},
+       messages= [{"role": "system", "content":"generate ONLY Sql to query relevant data for the User Query. If multiple queries are needed to get all the data, include a --multiple at the very end"},
           {"role": "user", "content": f"{prompt}, \n {context}"}          
        ],
        temperature= .1 
