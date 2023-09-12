@@ -161,7 +161,7 @@ def generate_final_answer(context, prompt):
     #print(response)
     return response
 #########################################################################################################################
-sample_movie = movies_df.sample(1).to_html(index=False)
+sample_movie = movies_df.sample(1)
 sample_company = companies_df.sample(1)
 sample_music = music_df.sample(1)
 
