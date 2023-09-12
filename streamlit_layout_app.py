@@ -183,7 +183,7 @@ def main():
     If the chatbot is not working, please reach out to me on my [LinkedIn](www.linkedin.com/in/levielfattal) 
     so I can refill my OpenAI account.
     """)
-    st.sidebar.write("---")  # Horizontal line for clean transition
+    #st.sidebar.write("---")  # Horizontal line for clean transition
     st.sidebar.markdown("""
     This app allows you to ask questions about three different datasets spanning three different topics: Movies, Corporations, and Music.
     The app currently uses OpenAI's API to take in your questions, generate a SQL query to get relevant data for, and then use that data to answer your question.
