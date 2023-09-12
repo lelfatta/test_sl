@@ -171,10 +171,11 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
         
-    st.title('Multi-Domain Tabular Data Chat App')
+    st.title('Multi-Dataset Tabular Data Chat App')
+    st.sidebar.title("About This App")
 
     # Top 1/3 for images
-    st.write("### Image Section")
+    st.write("###")
     col1, col2, col3 = st.columns(3)
     with col1:
         st.image("Romantisized golden era movie theater screen from a side angle lights dimmed.jfif", caption="Movies by Dalle2", use_column_width=True)
