@@ -204,20 +204,33 @@ def main():
         with st.chat_message("user"):
             st.markdown(user_input)
 
-        #generate sql
-        sql_query = generate_sql_query(context_for_sql, user_input)
-        print(sql_query)
-        table_in_query = extract_table_from_sql(sql_query.choices[0].message.content)
-        #execute the generated sql query
-        sql_result = execute_sql_query(sql_query.choices[0].message.content, df_dict)
-        print(sql_result)
-        #convert the df output (sql_result) into markdown
-        #result_markdown = df_to_markdown(sql_result)
-
-        #create final context for prompt (prompt engineering) and generate final answer
-        final_context = f"Data: {sql_result}\nBased on this specific data and context, answer the user query."
-        final_chat_object = generate_final_answer(sql_result, user_input)
-        final_answer = final_chat_object.choices[0].message.content
+                # Initialize final_answer to store either the generated answer or an error message
+        final_answer = ""
+        
+        # First try-except block for executing the SQL query
+        try:
+            # Generate SQL query
+            sql_query = generate_sql_query(context_for_sql, user_input)
+            print(sql_query)
+            table_in_query = extract_table_from_sql(sql_query.choices[0].message.content)
+            
+            # Execute the generated SQL query
+            sql_result = execute_sql_query(sql_query.choices[0].message.content, df_dict)
+            print(sql_result)
+            
+        except Exception as e:
+            final_answer = f"An error occurred while executing the SQL query. Try rewriting your question to be more specific: {e}"
+        
+        # Second try-except block for generating the final answer
+        if not final_answer:  # Only proceed if no error occurred in the first try-except block
+            try:
+                # Create final context for prompt (prompt engineering) and generate final answer
+                final_context = f"Data: {sql_result}\nBased on this specific data and context, answer the user query."
+                final_chat_object = generate_final_answer(sql_result, user_input)
+                final_answer = final_chat_object.choices[0].message.content
+            
+            except Exception as e:
+                final_answer = f"An error occurred while generating the final answer: {e}"
      
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
